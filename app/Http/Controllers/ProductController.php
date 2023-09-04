@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
-class StockController extends Controller
+
+class ProductController extends Controller
 {
+    private $product;
+
     public function __construct()
     {
+        $this->product = new Product();
         $this->middleware('auth:api', ['except' => ['create']]);
     }
     /**
@@ -15,23 +20,22 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $products = $this->product->all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(['products'=>$products]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
+        $this->product->name = $request->name;
+        $this->product->quantity = $request->quantity;
+        $this->product->brand = $request->brand;
+        $this->product->bussines_unit_id = $request->bussines_unit_id;
+        $res = $this->product->save();
+        return response()->json(['product'=>$res]);
     }
 
     /**

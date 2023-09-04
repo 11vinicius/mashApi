@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bussines_unit', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('street');
-            $table->integer('number');
-            $table->string('state');
-            $table->string('city');
-            $table->string('neighborhood');
-            $table->string('zipcode');
+            $table->string('name')->unique();
+            $table->integer('quantity');
+            $table->string('brand');
             $table
-            ->foreignUuid('user_id')
+            ->foreignUuid('bussines_unit_id')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bussines_unit');
+        Schema::dropIfExists('products');
     }
 };

@@ -15,7 +15,7 @@ class BussinesUnit extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $table='bussines_unit';
+    protected $table='bussines_units';
 
     protected $fillable = [
         'name',

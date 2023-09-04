@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = $this->user->all();
+        $user = $this->user->with('bussinesUnit')->get();
 
         return response()->json(['user'=>$user]);
 

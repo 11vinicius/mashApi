@@ -23,7 +23,7 @@ class BussinesUnitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>'required|unique:bussines_unit',
+            "name"=>'required|unique:bussines_units',
             "street"=>"required",
             "number"=>"required",
             "state"=>"required",

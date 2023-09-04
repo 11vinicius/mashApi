@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-// use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BussinesUnitController;
 
 
@@ -20,15 +20,12 @@ use App\Http\Controllers\BussinesUnitController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-
     Route::post('login', [AuthController::class,'login']);
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', 'AuthController@refresh');
@@ -42,23 +39,19 @@ Route::group([
 ], function ($router) {
     Route::post('/', [UserController::class,'create']);
     Route::get('/', [UserController::class,'index']);
-
-
 });
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'product'
+], function ($router) {
+    Route::get('/', [ProductController::class,'index']);
+    Route::post('/', [ProductController::class,'create']);
+    // Route::get('/productbyuser', [ProductController::class,'productByUserId']);
+    Route::put('/{id}', [ProductController::class,'update']);
+    Route::delete('/{id}', [ProductController::class,'destroy']);
 
-// Route::group([
-//     'middleware' => 'api',
-//     'prefix' => 'product'
-// ], function ($router) {
-//     Route::get('/', [ProductController::class,'index']);
-//     Route::post('/', [ProductController::class,'create']);
-//     Route::get('/productbyuser', [ProductController::class,'productByUserId']);
-//     Route::put('/{id}', [ProductController::class,'update']);
-//     Route::delete('/{id}', [ProductController::class,'destroy']);
-
-// });
-
+});
 
 Route::group([
     'middleware' => 'api',
