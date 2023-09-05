@@ -22,8 +22,10 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>"required",
-            "quantity"=>"required|integer"
+            "name"=>"required|unique:products",
+            "quantity"=>"required|integer",
+            "brand"=>"required",
+            "bussines_unit_id"=>"required"
 
         ];
     }
@@ -32,7 +34,10 @@ class ProductRequest extends FormRequest
     {
         return [
             'name.required' => 'Nome obrigatório.',
+            'name.unique' => 'Nome já cadastrado.',
             'quantity.required' => 'Quantidade obrigatório.',
+            'brand.required' => 'Marca obrigatório.',
+            'bussines_unit_id'=> 'id da unidade de negócio obrigatório.'
         ];
     }
 }

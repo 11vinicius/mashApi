@@ -41,9 +41,10 @@ class BussinesUnitController extends Controller
 
    function findByUserId()
     {
-        $bussinesunit = $this->bussinesUnit->where('user_id','=',auth()->user()->id)->paginate(10);
+        $id = auth()->user()->id;
+        $bussinesUnit = $this->bussinesUnit->where('user_id','=',$id)->get();
 
-        return response()->json(['bussinesUnit'=>$this->bussinesUnit]);
+        return response()->json(['bussinesUnit'=>$bussinesUnit]);
     }
     
     function findById(string $id)

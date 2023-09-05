@@ -38,22 +38,12 @@ class UserController extends Controller
      */
     public function create(UserRequest $request)
     {
-
         $this->user->name = $request->name;
         $this->user->email = $request->email;
         $this->user->password = Hash::make($request->password);
         $this->user->save();
         return response()->json(['user'=>  $this->user]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      */
@@ -81,8 +71,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        
+        $res = $this->user->destroy($id);
+
+        return response()->json(['response'=> $res]);
     }
 }

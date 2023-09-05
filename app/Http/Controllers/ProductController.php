@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 
 
 class ProductController extends Controller
@@ -13,7 +14,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->product = new Product();
-        $this->middleware('auth:api', ['except' => ['create']]);
+        $this->middleware('auth:api', ['except' => []]);
     }
     /**
      * Display a listing of the resource.
@@ -28,14 +29,15 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function create(ProductRequest $request)
     {
         $this->product->name = $request->name;
         $this->product->quantity = $request->quantity;
         $this->product->brand = $request->brand;
         $this->product->bussines_unit_id = $request->bussines_unit_id;
-        $res = $this->product->save();
-        return response()->json(['product'=>$res]);
+        $this->product->save();
+
+        return response()->json(['product'=>$this->product]);
     }
 
     /**
