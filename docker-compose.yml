@@ -7,7 +7,7 @@ services:
         image: 'postgres:15-alpine'
         working_dir: /application
         volumes:
-            - '.:/application'
+            - './db:/data/db'
         environment:
             - POSTGRES_USER=pg
             - POSTGRES_PASSWORD=pg
@@ -24,7 +24,7 @@ services:
         ports:
             - '80:80'
 
-    php-fpm:
+    api:
         build: phpdocker/php-fpm
         working_dir: /application
         volumes:

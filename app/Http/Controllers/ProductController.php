@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\BussinesUnit;
+
 use App\Http\Requests\ProductRequest;
+
 
 
 class ProductController extends Controller
@@ -48,20 +52,24 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function productByBussinesUnitId($id)
     {
-        //
+        $product = $this->product->where('bussines_unit_id','=',$id)->get();
+        return response()->json(['product'=>$product]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, string $id)
     {
-        //
+        $product = $this->product->find($id);
+        $product->name = $request->name;
+        $product->quantity = $request->quantity;
+        $product->brand = $request->brand;
+        $product->bussines_unit_id = $request->bussines_unit_id;
+        $product->save();
+       return response()->json(['product'=>$product]);
     }
 
     /**
@@ -69,6 +77,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $res = $this->product->destroy($id);
+        return response()->json(['response'=> $res]);
     }
 }

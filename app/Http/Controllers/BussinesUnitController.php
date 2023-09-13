@@ -35,7 +35,6 @@ class BussinesUnitController extends Controller
         $this->bussinesUnit->user_id = auth()->user()->id;
         $this->bussinesUnit->zipcode = $request->zipcode;
         $this->bussinesUnit->save();
-
         return response()->json(['bussinesUnit'=>$this->bussinesUnit]);
     }
 

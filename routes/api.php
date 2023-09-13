@@ -48,8 +48,8 @@ Route::group([
 ], function ($router) {
     Route::get('/', [ProductController::class,'index']);
     Route::post('/', [ProductController::class,'create']);
-    // Route::get('/productbyuser', [ProductController::class,'productByUserId']);
-    // Route::put('/{id}', [ProductController::class,'update']);
+    Route::get('/productbyuser/{id}', [ProductController::class,'productByBussinesUnitId']);
+    Route::put('/{id}', [ProductController::class,'update']);
     // Route::delete('/{id}', [ProductController::class,'destroy']);
 
 });

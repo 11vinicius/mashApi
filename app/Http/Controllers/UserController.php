@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
@@ -28,9 +29,7 @@ class UserController extends Controller
     public function index()
     {
         $user = $this->user->with('bussinesUnit')->get();
-
-        return response()->json(['user'=>$user]);
-
+        return response()->json(['user'=> Storage::url('YKGuvK8wVDl3FDA0wUXiEbU34wAnrXa9QptfIM4W.jpg')  ]);
     }
 
     /**
@@ -41,6 +40,7 @@ class UserController extends Controller
         $this->user->name = $request->name;
         $this->user->email = $request->email;
         $this->user->password = Hash::make($request->password);
+        $this->user->avatar = Storage::disk('public')->put('/',$request->file('avatar'));
         $this->user->save();
         return response()->json(['user'=>  $this->user]);
     }
@@ -71,11 +71,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy($id)
     {
-        
         $res = $this->user->destroy($id);
-
         return response()->json(['response'=> $res]);
     }
 }
