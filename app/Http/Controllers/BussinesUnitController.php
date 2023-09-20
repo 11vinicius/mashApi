@@ -15,13 +15,13 @@ class BussinesUnitController extends Controller
     public function __construct()
     {
         $this->bussinesUnit = new BussinesUnit();
-        $this->middleware('auth:api', ['except' => []]);
+        $this->middleware('auth:sanctum');
     }
 
     public function index()
     {
         $bussinesunit = $this->bussinesUnit->all();
-        return response()->json(['businesUnit'=>$bussinesunit]);
+        return response()->json(['bussinesUnit'=>$bussinesunit]);
     }
    
     public function create(BussinesUnitRequest $request)

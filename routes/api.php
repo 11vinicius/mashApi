@@ -21,9 +21,7 @@ use App\Http\Controllers\BussinesUnitController;
 */
 
 
-
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('login', [AuthController::class,'login']);
@@ -34,7 +32,6 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'user'
 ], function ($router) {
     Route::post('/', [UserController::class,'create']);
@@ -43,7 +40,6 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
     'prefix' => 'product'
 ], function ($router) {
     Route::get('/', [ProductController::class,'index']);
@@ -55,7 +51,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth:sanctum',
     'prefix' => 'bussinesunit'
 ], function ($router) {
     Route::get('/', [BussinesUnitController::class,'index']);
