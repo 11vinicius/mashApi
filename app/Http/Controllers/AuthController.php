@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 
 class AuthController extends Controller
 {
+    private $user; 
     /**
      * Create a new AuthController instance.
      *
@@ -16,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth:api', ['except' => ['login']]);
+        $this->user = new User();
     }
 
     /**
@@ -27,13 +29,13 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = request(['email', 'password']);
-      
 
         if (!auth()->attempt($credentials)) {
             return response()->json(['message' => 'Email e\ou senha inválido'], 401);
         }
-        $token = $request->user()->createToken('$request->token_name')->plainTextToken;
 
+        $request->user()->delete();
+        $token = $request->user()->createToken('$request->token_name')->plainTextToken;
         return response()->json(['token'=>$token, 'type'=>'Bearer'], 200);
     }
 

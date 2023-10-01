@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Cache;
+use Illuminate\Support\Facades\Redis;
 
 use App\Models\BussinesUnit;
 use App\Http\Requests\BussinesUnitRequest;
@@ -20,7 +22,14 @@ class BussinesUnitController extends Controller
 
     public function index()
     {
-        $bussinesunit = $this->bussinesUnit->all();
+        $expiration = 60;
+        $key='';
+
+        // $bussinesunit = Cache::remember($key, $expiration, function(){
+        //     'user' => Redis::get('user:profile:'.$id)
+        // }); '
+        $id = '2|6Wu18cbxArmQ0I4OoiuRcJY7eE6OPEyk0ppwa6Jv125457cb';
+        $bussinesunit =  Redis::get('user:profile:'.$id);
         return response()->json(['bussinesUnit'=>$bussinesunit]);
     }
    

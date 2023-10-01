@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
 use App\Models\User;
 use App\Http\Requests\UserRequest;
-
 
 
 class UserController extends Controller
@@ -21,15 +19,14 @@ class UserController extends Controller
     public function __construct()
     {
         $this->user = new User(); 
-        $this->middleware('auth:api', ['except' => ['create']]);
+        $this->middleware('auth:sanctum',['except' => ['create']]);
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = $this->user->with('bussinesUnit')->get();
-        return response()->json(['user'=> Storage::url('YKGuvK8wVDl3FDA0wUXiEbU34wAnrXa9QptfIM4W.jpg')  ]);
+        return response()->json(['user'=>$this->user->with('bussinesUnit')->get()]);
     }
 
     /**
