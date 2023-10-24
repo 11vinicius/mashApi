@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -28,13 +29,12 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only(['email', 'password']);
 
         if (!auth()->attempt($credentials)) {
             return response()->json(['message' => 'Email e\ou senha inválido'], 401);
         }
 
-        $request->user()->delete();
         $token = $request->user()->createToken('$request->token_name')->plainTextToken;
         return response()->json(['token'=>$token, 'type'=>'Bearer'], 200);
     }
