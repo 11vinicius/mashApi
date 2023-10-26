@@ -25,10 +25,10 @@ class BussinesUnitController extends Controller
         $expiration = 60;
         $key='';
 
-        // $bussinesunit = Cache::remember($key, $expiration, function(){
-        //     'user' => Redis::get('user:profile:'.$id)
-        // }); '
-        $id = '2|6Wu18cbxArmQ0I4OoiuRcJY7eE6OPEyk0ppwa6Jv125457cb';
+        // // $bussinesunit = Cache::remember($key, $expiration, function(){
+        // //     'user' => Redis::get('user:profile:'.$id)
+        // // }); '
+        // $id = '2|6Wu18cbxArmQ0I4OoiuRcJY7eE6OPEyk0ppwa6Jv125457cb';
         $bussinesunit =  Redis::get('user:profile:'.$id);
         return response()->json(['bussinesUnit'=>$bussinesunit]);
     }

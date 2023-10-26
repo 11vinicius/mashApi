@@ -37,7 +37,6 @@ class UserController extends Controller
         $this->user->name = $request->name;
         $this->user->email = $request->email;
         $this->user->password = Hash::make($request->password);
-        
         $this->user->avatar = $request->has('avatar')? $request->file('avatar')->store('public/avatars'):null;
         $this->user->save();
         return response()->json(['user'=>  $this->user]);

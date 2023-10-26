@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->product = new Product();
-        $this->middleware('auth:api', ['except' => []]);
+        $this->middleware('auth:sanctum');
     }
     /**
      * Display a listing of the resource.

@@ -61,5 +61,6 @@ Route::group([
 Route::group([
     'prefix' => 'equipment'
 ], function ($router) {
+    Route::get('/', [EquipmentController::class,'index']);
     Route::post('/', [EquipmentController::class,'create']);
 });
